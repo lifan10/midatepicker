@@ -15,7 +15,7 @@ export default {
         },
         data () {
             return {
-                date: '2017-02-01'
+                date: '2017-01-01'
             };
         }
 };

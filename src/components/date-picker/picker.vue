@@ -248,17 +248,21 @@
             visualValue: {
                 get () {
                     const value = this.internalValue;
-                    if (!value) return;
-                    const formatter = (
-                        TYPE_VALUE_RESOLVER_MAP[this.type] ||
-                        TYPE_VALUE_RESOLVER_MAP['default']
-                    ).formatter;
-                    const format = DEFAULT_FORMATS[this.type];
+                    if(value instanceof Date) {
+                        const formatter = (
+                            TYPE_VALUE_RESOLVER_MAP['month'] ||
+                            TYPE_VALUE_RESOLVER_MAP['default']
+                        ).formatter;
+                        const format = DEFAULT_FORMATS['month'];
+                        return formatter(value, this.format || format);
+                    }else{
+                        return value;
+                    }
 
-                    return formatter(value, this.format || format);
                 },
 
                 set (value) {
+                    debugger;
                     if (value) {
                         const type = this.type;
                         const parser = (
@@ -492,9 +496,10 @@
                 if (!val && this.picker && typeof this.picker.handleClear === 'function') {
                     this.picker.handleClear();
                 }
-//                this.$emit('input', val);
+                this.$emit('input', val);
             },
             value (val) {
+                debugger;
                 this.currentValue = val;
             },
             currentValue: {
