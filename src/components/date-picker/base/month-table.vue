@@ -60,6 +60,7 @@
                 ];
             },
             handleClick (event) {
+                debugger;
                 const target = event.target;
                 if (target.tagName === 'EM') {
                     const index = parseInt(event.target.getAttribute('index'));

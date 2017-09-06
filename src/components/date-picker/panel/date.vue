@@ -7,6 +7,7 @@
                 @click="handleShortcutClick(shortcut)">{{ shortcut.text }}</div>
         </div>
         <div :class="[prefixCls + '-body']">
+            <date-type-picker v-model='currentView' @on-pick-type='handleDateType'></date-type-picker>
             <div :class="[datePrefixCls + '-header']" v-show="currentView !== 'time'">
                 <span
                     :class="iconBtnCls('prev', '-double')"
@@ -21,7 +22,7 @@
                 <span
                     :class="[datePrefixCls + '-header-label']"
                     @click="showMonthPicker"
-                    v-show="currentView === 'date'">{{ monthLabel }}</span>
+                    v-show="currentView === 'week'">{{ monthLabel }}</span>
                 <span
                     :class="iconBtnCls('next', '-double')"
                     @click="nextYear"><Icon type="ios-arrow-right"></Icon></span>
@@ -31,16 +32,16 @@
                     v-show="currentView === 'date'"><Icon type="ios-arrow-right"></Icon></span>
             </div>
             <div :class="[prefixCls + '-content']">
-                <date-table
-                    v-show="currentView === 'date'"
-                    :year="year"
-                    :month="month"
-                    :date="date"
-                    :value="value"
-                    :selection-mode="selectionMode"
-                    :disabled-date="disabledDate"
-                    @on-pick="handleDatePick"
-                    @on-pick-click="handlePickClick"></date-table>
+                <!--<date-table-->
+                    <!--v-show="currentView === 'date'"-->
+                    <!--:year="year"-->
+                    <!--:month="month"-->
+                    <!--:date="date"-->
+                    <!--:value="value"-->
+                    <!--:selection-mode="selectionMode"-->
+                    <!--:disabled-date="disabledDate"-->
+                    <!--@on-pick="handleDatePick"-->
+                    <!--@on-pick-click="handlePickClick"></date-table>-->
                 <week-table
                     v-show="currentView === 'week'"
                     :year="year"
@@ -49,7 +50,7 @@
                     :value="value"
                     :selection-mode="selectionMode"
                     :disabled-date="disabledDate"
-                    @on-pick="handleDatePick"
+                    @on-pick="handleWeekPick"
                     @on-pick-click="handlePickClick"></week-table>
                 <year-table
                     ref="yearTable"
@@ -185,15 +186,15 @@
                 if (this.showTime) this.$refs.timePicker.handleClear();
             },
             resetView (reset = false) {
-                if (this.currentView !== 'time' || reset) {
-                    if (this.selectionMode === 'month') {
-                        this.currentView = 'month';
-                    } else if (this.selectionMode === 'year') {
-                        this.currentView = 'year';
-                    } else {
-                        this.currentView = 'date';
-                    }
-                }
+//                if (this.currentView !== 'time' || reset) {
+//                    if (this.selectionMode === 'month') {
+//                        this.currentView = 'month';
+//                    } else if (this.selectionMode === 'year') {
+//                        this.currentView = 'year';
+//                    } else {
+//                        this.currentView = 'date';
+//                    }
+//                }
 
                 this.year = this.date.getFullYear();
                 this.month = this.date.getMonth();
@@ -260,8 +261,9 @@
                 this.resetDate();
             },
             handleMonthPick (month) {
+                debugger;
                 this.month = month;
-                const selectionMode = this.selectionMode;
+                const selectionMode = 'month';
                 if (selectionMode !== 'month') {
                     this.date.setMonth(month);
                     this.currentView = 'date';
@@ -285,6 +287,7 @@
                 this.resetDate();
             },
             handleWeekPick (value) {
+                debugger;
                 this.value=value;
                 this.$emit('on-pick',value);
                 this.date.setFullYear(this.year);

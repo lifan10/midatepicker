@@ -21,7 +21,7 @@
         },
         data () {
             return {
-                currentView:'date'
+                currentView:'week'
             };
         },
 

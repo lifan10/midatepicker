@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <mi-datepicker v-model="date" type="week-month" placement="bottom-end" placeholder="选择日期" style="width: 200px"></mi-datepicker>
+    <mi-datepicker v-model="date" type="date" placement="bottom-end" placeholder="选择日期" style="width: 200px"></mi-datepicker>
     <!--<router-view></router-view>-->
   </div>
 </template>

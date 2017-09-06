@@ -52,19 +52,19 @@
                     month = firstDay.format('MM'),//当前月份
                     week,count = 1, nowDate;
                 //今天的日期或者是指定的value值
-                if(this.value){
+                if(this.value.length){
                     let valArr=this.value.split('~');
                     nowDate=clearHours(new Date(valArr[0]));
                 }else{
                     nowDate=clearHours(new Date());
                 }
-                if(monthDay != "1"){
+                if(monthDay !== "1"){
                     week = moment(firstDay.format('YYYY-MM-DD'),'YYYY-MM-DD').add('day',7-monthDay+1);
                 }else{
                     week = moment(firstDay.format('YYYY-MM-DD'),'YYYY-MM-DD');
                 }
                 //循环本月的几个周
-                while(week.startOf('week').format('MM') == month){
+                while(week.startOf('week').format('MM') === month){
                     var cell={};
                     cell.count=count;
                     cell.firstDayOfWeek=week.startOf('week').format('YYYY-MM-DD');
@@ -73,7 +73,7 @@
                     cell.endDayOfWeekLabel=week.endOf('week').format('MM-DD');
                     const time=clearHours(cell.firstDayOfWeek);
                     cell.disabled=typeof disabledDate === 'function' && disabledDate(new Date(time));
-                    if(nowDate==clearHours(cell.endDayOfWeek)||nowDate==clearHours(cell.firstDayOfWeek)||nowDate>clearHours(cell.firstDayOfWeek)&&nowDate<clearHours(cell.endDayOfWeek)){
+                    if(nowDate===clearHours(cell.endDayOfWeek)||nowDate===clearHours(cell.firstDayOfWeek)||nowDate>clearHours(cell.firstDayOfWeek)&&nowDate<clearHours(cell.endDayOfWeek)){
                         cell.selected=true;
                     }else{
                         cell.selected=false;
@@ -87,6 +87,7 @@
         },
         methods: {
             handleClick (cell) {
+                debugger;
                 const target = event.target;
                 if (target.tagName === 'SPAN') {
                     cell.selected=true;
